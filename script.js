@@ -1,22 +1,45 @@
- function sinal() {    
+// paleta #767E3E, #6FC165, #5BDE96, #BDF39C, #EDFEB5 
+ 
+filterSelection("all")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("column");
+  if (c == "all") c = "";
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
+}
 
-    var image = document.getElementById("sinal").getAttribute("src");
-    var fundo = document.getElementById("fundo");
-    var sin = document.getElementById("sin");
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+  }
+}
 
-    if ( image == "./Assets/ImageGreen.png"){
-        document.getElementById("sinal").src = "./Assets/ImageYellow.png";
-        fundo.className = "yellow";
-        sin.className = "layout red"
-    } 
-    else if ( image == "./Assets/ImageYellow.png" ) {
-        document.getElementById("sinal").src = "./Assets/ImageRED.png";        
-        fundo.className = "red";
-        sin.className = "layout green"
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);     
     }
-    else{
-        document.getElementById('sinal').src='./Assets/ImageGreen.png';
-        fundo.className = "green";
-        sin.className = "layout yellow"
-    }
+  }
+  element.className = arr1.join(" ");
+}
+
+
+// Add active class to the current button (highlight it)
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function(){
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
 }
