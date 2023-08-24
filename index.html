@@ -1,100 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
 
-        <script src="./script.js"></script>
-        <link rel="stylesheet" href="./layout.css">
-        <title>Dias e Cruz Hortfrut</title>
-    </head>
-    <body id="titulo">
-    <div class="navbar">
-        <a href="#titulo">Home</a>
-        <a href="https://www.facebook.com/Dias-e-Cruz-Hortfrut-729705067207597/">Facebook</a>
-        <h3 class="right" href="#titulo">developed by Alex Barros</h3>
-    </div>
-        <header class="header">
-            <div class="header__text-box">
-                <h1 class="heading-primary">
-                    <span class="heading-primary--main">Dias e Cruz Hortfrut</span>
-                </h1>
-            </div>
-        </header>
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
 
-        <!-- Container for the image gallery -->
-        
-        <h2>Galeria</h2>
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  -->
+  <base href="/">
 
-        <div class="gallery">
-            <a target="_blank" href="./assets/feijao003.jpg">
-                <img src="./assets/feijao003.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
 
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="yespense">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
+  <title>yespense</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <!-- This script installs service_worker.js to provide PWA functionality to
+       application. For more information, see:
+       https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script>
+    var serviceWorkerVersion = "1646479806";
+    var scriptLoaded = false;
+    function loadMainDartJs() {
+      if (scriptLoaded) {
+        return;
+      }
+      scriptLoaded = true;
+      var scriptTag = document.createElement('script');
+      scriptTag.src = 'main.dart.js';
+      scriptTag.type = 'application/javascript';
+      document.body.append(scriptTag);
+    }
 
-        <div class="gallery">
-            <a target="_blank" href="./assets/horta004.jpg">
-                <img src="./assets/horta004.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
+    if ('serviceWorker' in navigator) {
+      // Service workers are supported. Use them.
+      window.addEventListener('load', function () {
+        // Wait for registration to finish before dropping the <script> tag.
+        // Otherwise, the browser will load the script multiple times,
+        // potentially different versions.
+        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+        navigator.serviceWorker.register(serviceWorkerUrl)
+          .then((reg) => {
+            function waitForActivation(serviceWorker) {
+              serviceWorker.addEventListener('statechange', () => {
+                if (serviceWorker.state == 'activated') {
+                  console.log('Installed new service worker.');
+                  loadMainDartJs();
+                }
+              });
+            }
+            if (!reg.active && (reg.installing || reg.waiting)) {
+              // No active web worker and we have installed or are installing
+              // one for the first time. Simply wait for it to activate.
+              waitForActivation(reg.installing ?? reg.waiting);
+            } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
+              // When the app updates the serviceWorkerVersion changes, so we
+              // need to ask the service worker to update.
+              console.log('New service worker available.');
+              reg.update();
+              waitForActivation(reg.installing);
+            } else {
+              // Existing service worker is still good.
+              console.log('Loading app from service worker.');
+              loadMainDartJs();
+            }
+          });
 
-        <div class="gallery">
-            <a target="_blank" href="./assets/horta005.jpg">
-                <img src="./assets/horta005.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
-
-        <div class="gallery">
-            <a target="_blank" href="./assets/horta006.jpg">
-                <img src="./assets/horta006.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
-
-        <div class="gallery">
-            <a target="_blank" href="./assets/poro001.jpg">
-                <img src="./assets/poro001.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
-
-        <div class="gallery">
-            <a target="_blank" href="./assets/poro002.jpg">
-                <img src="./assets/poro002.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
-
-        <div class="gallery">
-            <a target="_blank" href="./assets/repolho003.jpg">
-                <img src="./assets/repolho003.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
-
-        <div class="gallery">
-            <a target="_blank" href="./assets/repolho005.jpg">
-                <img src="./assets/repolho005.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
-
-        <div class="gallery">
-            <a target="_blank" href="./assets/pessego002.jpg">
-                <img src="./assets/pessego002.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
-
-
-        <div class="gallery">
-            <a target="_blank" href="./assets/feijao001.jpg">
-                <img src="./assets/feijao001.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>
-
-        <div class="gallery">
-            <a target="_blank" href="./assets/horta001.jpg">
-                <img src="./assets/horta001.jpg" alt="Cinque Terre" width="1200" height="800">
-            </a>
-        </div>        
-    </body>
+        // If service worker doesn't succeed in a reasonable amount of time,
+        // fallback to plaint <script> tag.
+        setTimeout(() => {
+          if (!scriptLoaded) {
+            console.warn(
+              'Failed to load app from service worker. Falling back to plain <script> tag.',
+            );
+            loadMainDartJs();
+          }
+        }, 4000);
+      });
+    } else {
+      // Service workers not supported. Just drop the <script> tag.
+      loadMainDartJs();
+    }
+  </script>
+</body>
 </html>
